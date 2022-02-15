@@ -12,6 +12,7 @@ import android.net.wifi.WifiManager;
 import android.os.Build;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
+import android.util.Log;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -28,7 +29,7 @@ import java.util.Map;
 
 @SuppressLint("DefaultLocale")
 public class LDNetUtil {
-
+    private static final String TAG = LDNetUtil.class.getSimpleName();
     public static final String OPEN_IP = "";// 可ping的IP地址
     public static final String OPERATOR_URL = "";
 
@@ -85,13 +86,14 @@ public class LDNetUtil {
         if (telManager == null)
             return "未知运营商";
         String operator = telManager.getSimOperator();
+        Log.d(TAG,"operator:"+operator);
         if (operator != null) {
             if (operator.equals("46000") || operator.equals("46002")
                     || operator.equals("46007")) {
                 return "中国移动";
             } else if (operator.equals("46001")) {
                 return "中国联通";
-            } else if (operator.equals("46003")) {
+            } else if (operator.equals("46003")||operator.equals("46011")) {
                 return "中国电信";
             }
         }
